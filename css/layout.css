@@ -14,7 +14,8 @@ header img {
 ****************************************************/
 
 main {
-    height: calc(100vh - 61.5px)
+    height: calc(100vh - 61.5px);
+    
 }
 
 #myContainer {
@@ -24,12 +25,14 @@ main {
     height: 100%;
 }
 
+
 .imageContainer {
     height: 500px;
     width: 800px;  
-    position: relative;
     display: none;
     border-radius: 10px;
+    position: relative;
+    
 }
 
 .active {
@@ -52,16 +55,23 @@ main {
 
 .image-title {
     font-weight: bold;
+    font-size: 30px;
+}
+
+.image-text {
+    font-size: 20px;
 }
 
 .generalButton {
     position: absolute;
-    transform: translateY(-50%);
     border-radius: 50%;
     background: none;
     border: none;
     font-size: 30px;
     color: white;
+    z-index: 1;
+    cursor: pointer;
+    top: 50%;
 }
 
 .generalButton:hover {
@@ -70,13 +80,12 @@ main {
 }
 
 .backwardButton {
-    top: 50%;
-    left: 10px;
+    left: 30%;
+    
 }
 
 .forwardButton {
-    top: 50%;
-    right: 10px;
+    right: 30%;
 }
 
 

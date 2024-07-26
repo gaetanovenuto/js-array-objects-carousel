@@ -28,70 +28,112 @@ const images = [
 
 const myContainer = document.getElementById('myContainer');
 
-for (i = 0; i < images.length; i++) {
+// Creo un ciclo da 0 alla lunghezza dell'array di oggetti che mi crea un container con all'interno l'immagine e un altro container, al cui interno inserisco titolo e testo, prendendo i valori da ogni singolo oggetto. Applico la classe "active" al primo container.
+
+for (let i = 0; i < images.length; i++) {
     
-    const myImageContainer = document.createElement('div');
-    myImageContainer.classList.add('imageContainer');
-
-    const myInfo = document.createElement('div');
-    myInfo.classList.add('image-info', 'text-white');
-
-    const myImageTitle = document.createElement('div');
-    myImageTitle.classList.add('image-title');
-    myImageTitle.innerHTML = images[i].title;
-
-    const myImageText = document.createElement('div');
-    myImageText.classList.add('image-text');
-    myImageText.innerHTML = images[i].text;
-
-    const myImage = document.createElement('img');
-    myImage.classList.add('image');
-    myImage.setAttribute("src", images[i].image);
-
     if (i == 0) {
-        myImageContainer.classList.add('active');
+        myContainer.innerHTML += `
+        <div class="imageContainer active">
+            <img src="${images[i].image}" class="image">
+            <div class="image-info text-white">
+                <div class="image-title">
+                    ${images[i].title}
+                </div>
+                <div class="image-text">
+                    ${images[i].text}
+                </div>
+            </div>
+        </div>
+    `    
+    } else {
+        myContainer.innerHTML += `
+        <div class="imageContainer">
+            <img src="${images[i].image}" class="image">
+            <div class="image-info text-white">
+                <div class="image-title">
+                    ${images[i].title}
+                </div>
+                <div class="image-text">
+                    ${images[i].text}
+                </div>
+            </div>
+        </div>
+    `    
+    }
+    
+}
+
+// Porto su JS ogni contenitore per creare il carosello
+
+const singleItem = document.getElementsByClassName('imageContainer');
+
+let activeItem = 0;
+
+// Creo il bottone per andare avanti e gli applico l'evento click e la funzione per scorrere avanti
+
+const forwardButton = document.getElementById('fwButton');
+
+forwardButton.addEventListener('click', forward);
+
+// Creo il bottone per andare indietro e gli applico l'evento click e la funzione per scorrere indietro
+
+const backwardButton = document.getElementById('bwButton');
+
+backwardButton.addEventListener('click', backward)
+
+
+
+// PULSANTE AVANTI
+
+function forward() {
+    console.log('Forward Click');
+
+    if (activeItem < images.length - 1) {
+        singleItem[activeItem].classList.remove('active');
+        // thumbImg[activeItem].classList.remove('opacity-1');
+
+        activeItem++;
+
+        singleItem[activeItem].classList.add('active');
+        // thumbImg[activeItem].classList.add('opacity-1');
     }
 
-    let backwardButton = document.createElement('button');
-    backwardButton.innerHTML = `<i class="fa-solid fa-angle-left"></i>`
-    backwardButton.classList.add('generalButton', 'backwardButton');
+    else if (activeItem == images.length - 1) {
+        singleItem[activeItem].classList.remove('active');
+        // thumbImg[activeItem].classList.remove('opacity-1');
 
-    backwardButton.addEventListener('click', backwards);
+        activeItem = 0;
 
-    let forwardButton = document.createElement('button');
-    forwardButton.innerHTML = `<i class="fa-solid fa-angle-right"></i>`
-    forwardButton.classList.add('generalButton', 'forwardButton');
-
-    myContainer.append(myImageContainer);
-
-    myImageContainer.append(myImage);
-    myImageContainer.append(myInfo);
-    myImageContainer.append(backwardButton);
-    myImageContainer.append(forwardButton);
-
-    myInfo.append(myImageTitle);
-    myInfo.append(myImageText);
-
-    function backwards() {
-        console.log('CLICK');
-
-        if (myImageContainer[i] > 0) {
-
-            myImageContainer[i].classList.remove('active');
-    
-            i--;
-    
-            myImageContainer.classList.add('active');
-        }
-    
-        else if (myImageContainer[i] == 0) {
-
-            myImageContainer[i].classList.remove('active');
-    
-            myImageContainer[i] = images.length - 1;
-    
-            myImageContainer[i].classList.add('active');
-        }
+        singleItem[activeItem].classList.add('active');
+        // thumbImg[activeItem].classList.add('opacity-1');
     }
-};
+}
+
+// PULSANTE INDIETRO
+
+function backward() {
+    console.log('Backward Click');
+
+    if (activeItem > 0) {
+        singleItem[activeItem].classList.remove('active');
+        // thumbImg[activeItem].classList.remove('opacity-1');
+
+        activeItem--;
+
+        singleItem[activeItem].classList.add('active');
+        // thumbImg[activeItem].classList.add('opacity-1');
+    }
+
+    else if (activeItem == 0) {
+        singleItem[activeItem].classList.remove('active');
+        // thumbImg[activeItem].classList.remove('opacity-1');
+
+        activeItem = images.length - 1;
+
+        singleItem[activeItem].classList.add('active');
+        // thumbImg[activeItem].classList.add('opacity-1');
+    }
+}
+
 
