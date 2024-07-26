@@ -75,7 +75,7 @@ for (i = 0; i < images.length; i++) {
     function backwards() {
         console.log('CLICK');
 
-        if (i > 0) {
+        if (myImageContainer[i] > 0) {
 
             myImageContainer[i].classList.remove('active');
     
@@ -84,7 +84,7 @@ for (i = 0; i < images.length; i++) {
             myImageContainer.classList.add('active');
         }
     
-        else if (i == 0) {
+        else if (myImageContainer[i] == 0) {
 
             myImageContainer[i].classList.remove('active');
     
